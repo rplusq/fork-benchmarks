@@ -1,0 +1,25 @@
+# Use the official Node.js image
+FROM node:latest
+
+# Set the working directory
+WORKDIR /usr/src/app
+
+# PORT: The port to listen on
+ARG PORT
+ENV PORT=${PORT:-"8545"}
+EXPOSE $PORT
+
+# Ganache options
+ARG FORK_URL
+ENV FORK_URL=${FORK_URL:-"redacted"}
+ARG BLOCK_TIME
+ENV BLOCK_TIME=${BLOCK_TIME:-"3"}
+ARG FORK_BLOCK_NUMBER
+ENV FORK_BLOCK_NUMBER=${FORK_BLOCK_NUMBER:-"47021777"}
+ARG FORK_CHAIN_ID
+ENV FORK_CHAIN_ID=${FORK_CHAIN_ID:-"137"}
+
+# Install ganache
+RUN npm install -g ganache
+
+ENTRYPOINT ganache --server.host 0.0.0.0 --fork $FORK_URL --chain.chainId $FORK_CHAIN_ID --miner.blockTime $BLOCK_TIME
