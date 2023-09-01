@@ -19,3 +19,5 @@ flood eth_call anvil=localhost:3000 ganache=localhost:8545 -o ./fork-benchmarks/
 ## Considerations
 
 My Dockerfiles may have not been optimized, and Ganache kept crashing during the benchmark, so I just ran them locally on my machine so I could get these results.
+
+Tried using Alpine for the Ganache image, but it didn't have the uWS native module ganache depended on, so I moved to a a standard Node.js image `node:latest` that's based on Debian and had glibc
